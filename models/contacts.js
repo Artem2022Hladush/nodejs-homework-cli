@@ -1,4 +1,7 @@
-// const fs = require('fs/promises')
+const fs = require("fs/promises");
+const path = require("path");
+const nanoid = require('nanoid')
+const contactPath = path.join(__dirname, "./contacts.json");
 
 const listContacts = async () => {
   const data = await fs.readFile(contactPath);
@@ -42,7 +45,7 @@ const updateContact = async (contactId, body) => {
   }
 
   contactsList[index] = { id: contactId, ...body };
-  await updateFile(filePath, contactsList);
+  await fs.writeFile(contactPath, JSON.stringify(contactsList, null, 2));
   return contactsList[index];
 };
 
