@@ -64,7 +64,7 @@ router.post('/', async (req, res, next) => {
       code: 201,
       data: {
         ...newContact
-      }
+      },
     })
   } catch (error) {
     next(error)
@@ -72,11 +72,45 @@ router.post('/', async (req, res, next) => {
 })
 
 router.delete('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
+  try {
+    const {contactId} = req.params;
+    const deleteContact = await contactsOperations.removeContact(contactId)
+    if(!deleteContact) {
+      throw HttpError(404, "Not found")
+    }
+    res.json({
+      status: "delete contact",
+      code: 200,
+      data: {
+        ...deleteContact
+      },
+    })
+  } catch (error) {
+    next(error)
+  }
 })
 
 router.put('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
+  try {
+    const {body} = req;
+    const {error} = shema.validate(body);
+    if(error) {
+      throw HttpError(400, error.message)
+    }
+
+    const {contactId} = req.params;
+    const updateContact = await contactsOperations.updateContact(contactId, req.body)
+    if(!updateContact) {
+      throw HttpError(404, "Not found")
+    }
+    res.json({
+      status: "update contact",
+      code: 200,
+      data: {...updateContact},
+    })
+  } catch (error) {
+    next(error)
+  }
 })
 
 module.exports = router
