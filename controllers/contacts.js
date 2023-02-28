@@ -28,17 +28,17 @@ const getAll = async (req, res) => {
 // 		});
 // 	};
 
-// 	const add = async (req, res) => {
-// 		const {body} = req;
-// 			const newContact = await contactsOperations.addContact(body);
-// 			res.json({
-// 				status: "success",
-// 				code: 201,
-// 				data: {
-// 					...newContact
-// 				},
-// 			});
-// };
+	const add = async (req, res) => {
+		const {body} = req;
+			const newContact = await Contact.create(body);
+			res.json({
+				status: "success",
+				code: 201,
+				data: {
+					newContact
+				},
+			});
+};
 
 // const updateById = async (req, res) => {
 // 			const {contactId} = req.params;
@@ -71,7 +71,7 @@ const getAll = async (req, res) => {
 module.exports = {
 	getAll: ctrlWrapper(getAll),
 	// getById: ctrlWrapper(getById),
-	// add: ctrlWrapper(add),
+	add: ctrlWrapper(add),
 	// updateById: ctrlWrapper(updateById),
 	// remove: ctrlWrapper(remove),
 	}
