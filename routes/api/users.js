@@ -6,6 +6,8 @@ const {user: ctrl} = require("../../controllers");
 
 const router = express.Router();
 
-router.post("/register", validateBody(registerSchema), ctrl.register)
+router.post("/register", validateBody(registerSchema), ctrl.register);
+
+router.post("/login", validateBody(registerSchema), ctrl.login)
 
 module.exports = router;
