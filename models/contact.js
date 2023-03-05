@@ -22,6 +22,6 @@ const contactSchema = new Schema({
 
 contactSchema.post("save", handleMongooseError)
 
-const Contact = model("Contact", contactSchema)
+const Contact = model("contact", contactSchema)
 
 module.exports = Contact;
