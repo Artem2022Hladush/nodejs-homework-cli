@@ -18,7 +18,8 @@ const login = async (req, res) => {
 		throw HttpError(401, "Email or Passwor invalid")
 	}
 
-	const token = tokenCreate(user)
+	const token = tokenCreate(user);
+	await User.findByIdAndUpdate(user._id, {token})
 
 	res.status(200).json({
 		status: "success",
